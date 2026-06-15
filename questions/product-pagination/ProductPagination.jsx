@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import "./ProductPagination.css";
 
 const PAGE_SIZE = 10;
-const PRODUCTS_API_URL = "https://dummyjson.com/products?limit=200";
+const PRODUCTS_API_URL = "https://dummyjson.com/products?limit=100";
 
 export function getNumberOfPages(totalProducts) {
   return Math.ceil(totalProducts / PAGE_SIZE);

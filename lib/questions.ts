@@ -9,8 +9,204 @@ import ProgressBar from "@/questions/progress-bar/ProgressBar";
 import OtpInput from "@/questions/otp-input/OtpInput";
 import NestedCheckbox from "@/questions/nested-checkbox/NestedCheckbox";
 import Accordion from "@/questions/accordion/Accordion";
+import Cart from "@/questions/cart/Cart";
+import InfiniteScroll from "@/questions/infinite-scroll/InfiniteScroll";
+import Carousel from "@/questions/carousel/Carousel";
+import BarGraph from "@/questions/bar-graph/BarGraph";
+import Calendar from "@/questions/calendar/Calendar";
+import NestedComments from "@/questions/nested-comments/NestedComments";
+import KanbanBoard from "@/questions/kanban-board/KanbanBoard";
+import AutocompleteSearch from "@/questions/autocomplete-search/AutocompleteSearch";
+import DataTable from "@/questions/data-table/DataTable";
+import ModalManager from "@/questions/modal-manager/ModalManager";
+import MemoryGame from "@/questions/memory-game/MemoryGame";
+import TrafficLight from "@/questions/traffic-light/TrafficLight";
+import StarRating from "@/questions/star-rating/StarRating";
+import Tabs from "@/questions/tabs/Tabs";
 
 const questionRegistry: Question[] = [
+  {
+    slug: "kanban-board",
+    title: "Kanban Board",
+    description:
+      "Drag-and-drop task board with To Do, In Progress, and Done columns.",
+    topics: ["drag-and-drop", "kanban", "state", "html5-dnd"],
+    difficulty: "hard",
+    sourceFiles: {
+      tsx: "questions/kanban-board/KanbanBoard.jsx",
+      css: "questions/kanban-board/KanbanBoard.css",
+    },
+    Component: KanbanBoard,
+  },
+  {
+    slug: "modal-manager",
+    title: "Modal Manager",
+    description:
+      "Context-driven modal system — open, stack, and close dialogs from anywhere.",
+    topics: ["modal", "context-api", "portal", "ui"],
+    difficulty: "medium",
+    sourceFiles: {
+      tsx: "questions/modal-manager/ModalManager.jsx",
+      css: "questions/modal-manager/ModalManager.css",
+    },
+    Component: ModalManager,
+  },
+  {
+    slug: "data-table",
+    title: "Data Table",
+    description:
+      "Sortable, filterable, paginated table with status badges and column sorting.",
+    topics: ["table", "sorting", "filtering", "pagination"],
+    difficulty: "medium",
+    sourceFiles: {
+      tsx: "questions/data-table/DataTable.jsx",
+      css: "questions/data-table/DataTable.css",
+    },
+    Component: DataTable,
+  },
+  {
+    slug: "autocomplete-search",
+    title: "Autocomplete Search",
+    description:
+      "Debounced search input (300ms) with filtered dropdown suggestions.",
+    topics: ["autocomplete", "debounce", "search", "useEffect"],
+    difficulty: "medium",
+    sourceFiles: {
+      tsx: "questions/autocomplete-search/AutocompleteSearch.jsx",
+      css: "questions/autocomplete-search/AutocompleteSearch.css",
+    },
+    Component: AutocompleteSearch,
+  },
+  {
+    slug: "nested-comments",
+    title: "Nested Comments",
+    description:
+      "Infinite nesting — reply to any comment, expand/collapse threads, recursive rendering.",
+    topics: ["comments", "recursion", "tree", "expand-collapse"],
+    difficulty: "hard",
+    sourceFiles: {
+      tsx: "questions/nested-comments/NestedComments.jsx",
+      css: "questions/nested-comments/NestedComments.css",
+    },
+    Component: NestedComments,
+  },
+  {
+    slug: "memory-game",
+    title: "Memory Game",
+    description:
+      "Flip cards to find matching emoji pairs — track moves and win state.",
+    topics: ["game", "state", "useEffect", "matching"],
+    difficulty: "medium",
+    sourceFiles: {
+      tsx: "questions/memory-game/MemoryGame.jsx",
+      css: "questions/memory-game/MemoryGame.css",
+    },
+    Component: MemoryGame,
+  },
+  {
+    slug: "traffic-light",
+    title: "Traffic Light",
+    description:
+      "Auto-cycling red → yellow → green signal with pause/resume control.",
+    topics: ["useEffect", "setTimeout", "animation", "state-machine"],
+    difficulty: "easy",
+    sourceFiles: {
+      tsx: "questions/traffic-light/TrafficLight.jsx",
+      css: "questions/traffic-light/TrafficLight.css",
+    },
+    Component: TrafficLight,
+  },
+  {
+    slug: "star-rating",
+    title: "Star Rating",
+    description:
+      "Interactive 5-star rating with hover preview and read-only display mode.",
+    topics: ["rating", "hover", "controlled-component", "ui"],
+    difficulty: "easy",
+    sourceFiles: {
+      tsx: "questions/star-rating/StarRating.jsx",
+      css: "questions/star-rating/StarRating.css",
+    },
+    Component: StarRating,
+  },
+  {
+    slug: "tabs",
+    title: "Tabs",
+    description:
+      "Tabbed interface — switch panels with accessible tab buttons and one active view.",
+    topics: ["tabs", "accessibility", "conditional-rendering"],
+    difficulty: "easy",
+    sourceFiles: {
+      tsx: "questions/tabs/Tabs.jsx",
+      css: "questions/tabs/Tabs.css",
+    },
+    Component: Tabs,
+  },
+  {
+    slug: "calendar",
+    title: "Calendar",
+    description:
+      "Month view with prev/next navigation, current-month badge, and today highlighted.",
+    topics: ["calendar", "date", "useState", "grid"],
+    difficulty: "medium",
+    sourceFiles: {
+      tsx: "questions/calendar/Calendar.jsx",
+      css: "questions/calendar/Calendar.css",
+    },
+    Component: Calendar,
+  },
+  {
+    slug: "bar-graph",
+    title: "Bar Graph",
+    description:
+      "CSS bar chart from an array of { id, value } objects, scaled to the max value.",
+    topics: ["charts", "css", "data-visualization"],
+    difficulty: "easy",
+    sourceFiles: {
+      tsx: "questions/bar-graph/BarGraph.jsx",
+      css: "questions/bar-graph/BarGraph.css",
+    },
+    Component: BarGraph,
+  },
+  {
+    slug: "carousel",
+    title: "Image Carousel",
+    description:
+      "Auto-playing image carousel with prev/next arrows, dot indicators, and 3-second interval.",
+    topics: ["carousel", "useEffect", "setInterval", "ui"],
+    difficulty: "easy",
+    sourceFiles: {
+      tsx: "questions/carousel/Carousel.jsx",
+      css: "questions/carousel/Carousel.css",
+    },
+    Component: Carousel,
+  },
+  {
+    slug: "infinite-scroll",
+    title: "Infinite Scroll",
+    description:
+      "Fetch paginated posts from JSONPlaceholder and load more using IntersectionObserver.",
+    topics: ["infinite-scroll", "intersection-observer", "api", "useEffect"],
+    difficulty: "medium",
+    sourceFiles: {
+      tsx: "questions/infinite-scroll/InfiniteScroll.jsx",
+      css: "questions/infinite-scroll/InfiniteScroll.css",
+    },
+    Component: InfiniteScroll,
+  },
+  {
+    slug: "cart",
+    title: "Shopping Cart",
+    description:
+      "Add products, update quantities, apply SAVE10 promo for 10% off — cart state via Context API.",
+    topics: ["context-api", "state", "cart", "promo-code"],
+    difficulty: "medium",
+    sourceFiles: {
+      tsx: "questions/cart/Cart.jsx",
+      css: "questions/cart/Cart.css",
+    },
+    Component: Cart,
+  },
   {
     slug: "accordion",
     title: "Accordion",
@@ -132,7 +328,7 @@ const questionRegistry: Question[] = [
     slug: "file-explorer",
     title: "File & Folder Explorer",
     description:
-      "Recursive tree explorer with expand/collapse, per-folder state, add folder, and delete node (Google / Atlassian style).",
+      "Recursive tree explorer with expand/collapse, create folder/file, rename, and delete.",
     topics: ["tree", "recursion", "data-structures", "state"],
     difficulty: "hard",
     sourceFiles: {

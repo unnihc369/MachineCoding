@@ -114,6 +114,23 @@ export function deleteNodeFromTree(list, itemId) {
     });
 }
 
+export function renameNodeInTree(list, itemId, newName) {
+  return list.map((node) => {
+    if (node.id === itemId) {
+      return { ...node, name: newName };
+    }
+
+    if (node.children?.length) {
+      return {
+        ...node,
+        children: renameNodeInTree(node.children, itemId, newName),
+      };
+    }
+
+    return node;
+  });
+}
+
 export function collectFolderIds(list, ids = []) {
   for (const node of list) {
     if (node.isFolder) {
@@ -146,6 +163,8 @@ function ExplorerList({
   expandedMap,
   onToggleExpand,
   onAddFolder,
+  onAddFile,
+  onRenameNode,
   onDeleteNode,
 }) {
   return (
@@ -176,16 +195,36 @@ function ExplorerList({
 
               <div className="explorer-row__actions">
                 {node.isFolder && (
-                  <button
-                    type="button"
-                    className="explorer-row__action"
-                    aria-label={`Add folder inside ${node.name}`}
-                    title="Add folder"
-                    onClick={() => onAddFolder(node.id)}
-                  >
-                    ＋
-                  </button>
+                  <>
+                    <button
+                      type="button"
+                      className="explorer-row__action"
+                      aria-label={`Add folder inside ${node.name}`}
+                      title="Add folder"
+                      onClick={() => onAddFolder(node.id)}
+                    >
+                      📁+
+                    </button>
+                    <button
+                      type="button"
+                      className="explorer-row__action"
+                      aria-label={`Add file inside ${node.name}`}
+                      title="Add file"
+                      onClick={() => onAddFile(node.id)}
+                    >
+                      📄+
+                    </button>
+                  </>
                 )}
+                <button
+                  type="button"
+                  className="explorer-row__action"
+                  aria-label={`Rename ${node.name}`}
+                  title="Rename"
+                  onClick={() => onRenameNode(node.id, node.name)}
+                >
+                  ✎
+                </button>
                 <button
                   type="button"
                   className="explorer-row__action explorer-row__action--delete"
@@ -198,13 +237,15 @@ function ExplorerList({
               </div>
             </div>
 
-            {node.isFolder && isExpanded && node.children?.length > 0 && (
+            {node.isFolder && isExpanded && (
               <ExplorerList
-                list={node.children}
+                list={node.children ?? []}
                 depth={depth + 1}
                 expandedMap={expandedMap}
                 onToggleExpand={onToggleExpand}
                 onAddFolder={onAddFolder}
+                onAddFile={onAddFile}
+                onRenameNode={onRenameNode}
                 onDeleteNode={onDeleteNode}
               />
             )}
@@ -245,6 +286,27 @@ export default function FileExplorer() {
     setExpandedMap((prev) => ({ ...prev, [parentId]: true, [newNode.id]: true }));
   };
 
+  const handleAddFile = (parentId) => {
+    const name = window.prompt("Enter file name");
+    if (!name?.trim()) return;
+
+    const newNode = {
+      id: createNodeId(),
+      name: name.trim(),
+      isFolder: false,
+    };
+
+    setTreeData((prev) => addNodeToTree(prev, parentId, newNode));
+    setExpandedMap((prev) => ({ ...prev, [parentId]: true }));
+  };
+
+  const handleRenameNode = (itemId, currentName) => {
+    const name = window.prompt("Enter new name", currentName);
+    if (!name?.trim() || name.trim() === currentName) return;
+
+    setTreeData((prev) => renameNodeInTree(prev, itemId, name.trim()));
+  };
+
   const handleDeleteNode = (itemId) => {
     const confirmed = window.confirm("Delete this item?");
     if (!confirmed) return;
@@ -262,7 +324,8 @@ export default function FileExplorer() {
       <header className="file-explorer__header">
         <h2 className="file-explorer__title">File &amp; Folder Explorer</h2>
         <p className="file-explorer__subtitle">
-          Recursive tree UI with expand/collapse, add folder, and delete node.
+          Recursive tree UI with expand/collapse, create folder/file, rename,
+          and delete.
         </p>
         <p className="file-explorer__meta">
           {treeData.length} root items · {folderCount} folders
@@ -275,6 +338,8 @@ export default function FileExplorer() {
           expandedMap={expandedMap}
           onToggleExpand={handleToggleExpand}
           onAddFolder={handleAddFolder}
+          onAddFile={handleAddFile}
+          onRenameNode={handleRenameNode}
           onDeleteNode={handleDeleteNode}
         />
       </div>
