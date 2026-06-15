@@ -1,0 +1,122 @@
+.otp-input-demo {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.otp-input-demo__header {
+  margin-bottom: 20px;
+}
+
+.otp-input-demo__title {
+  margin: 0 0 6px;
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #171717;
+}
+
+.otp-input-demo__subtitle {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.otp-input-demo__controls {
+  margin-bottom: 20px;
+}
+
+.otp-input-demo__label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.otp-input-demo__lengths {
+  display: flex;
+  gap: 8px;
+}
+
+.otp-input-demo__length-btn {
+  min-width: 44px;
+  padding: 8px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.otp-input-demo__length-btn:hover {
+  background: #f9fafb;
+}
+
+.otp-input-demo__length-btn--active {
+  background: #eff6ff;
+  border-color: #2563eb;
+  color: #1d4ed8;
+}
+
+.otp-input-demo__meta {
+  margin: 16px 0 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.otp-input-demo__meta code {
+  font-family: ui-monospace, monospace;
+  background: #f3f4f6;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.otp-input-demo__success {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: #166534;
+}
+
+.otp-input-demo__hints {
+  margin: 20px 0 0;
+  padding-left: 18px;
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.otp-input-field {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.otp-input-field__box {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  outline: none;
+  background: #fff;
+  color: #171717;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.otp-input-field__box:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+@media (max-width: 480px) {
+  .otp-input-field__box {
+    width: 44px;
+    height: 44px;
+    font-size: 24px;
+  }
+}

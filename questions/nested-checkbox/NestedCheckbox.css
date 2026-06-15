@@ -1,0 +1,95 @@
+.nested-checkbox {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.nested-checkbox__header {
+  margin-bottom: 16px;
+}
+
+.nested-checkbox__title {
+  margin: 0 0 6px;
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #171717;
+}
+
+.nested-checkbox__subtitle {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.nested-checkbox__panel {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #fff;
+  padding: 12px 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.nested-checkbox__meta {
+  margin: 14px 0 0;
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.nested-checkbox__meta code {
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+  background: #f3f4f6;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #374151;
+}
+
+.nested-checkbox__hints {
+  margin: 16px 0 0;
+  padding-left: 18px;
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.checkbox-tree {
+  width: 100%;
+}
+
+.checkbox-tree__branch {
+  margin: 0;
+}
+
+.checkbox-tree__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-tree__row:hover {
+  background: #f3f4f6;
+}
+
+.checkbox-tree__row input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #2563eb;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.checkbox-tree__label {
+  font-size: 14px;
+  color: #171717;
+  line-height: 1.4;
+}
+
+.checkbox-tree__children {
+  margin: 0;
+}
