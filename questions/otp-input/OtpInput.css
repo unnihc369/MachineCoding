@@ -80,6 +80,28 @@
   color: #166534;
 }
 
+.otp-input-demo__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.otp-input-demo__action {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+}
+
+.otp-input-demo__action:hover {
+  background: #f9fafb;
+}
+
 .otp-input-demo__hints {
   margin: 20px 0 0;
   padding-left: 18px;
@@ -111,6 +133,11 @@
 .otp-input-field__box:focus {
   border-color: #2563eb;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.otp-input-field__box:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 @media (max-width: 480px) {

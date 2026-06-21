@@ -1,9 +1,74 @@
 "use client";
 
-import { createContext, useCallback, useContext, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+  useSyncExternalStore,
+} from "react";
+import { createPortal } from "react-dom";
 import "./ModalManager.css";
 
 const ModalContext = createContext(null);
+
+function useIsClient() {
+  return useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
+}
+
+function ModalPortal({ children }) {
+  const isClient = useIsClient();
+  if (!isClient) return null;
+  return createPortal(children, document.body);
+}
+
+function ModalDialog({ modal, isTop, zIndex, onClose, onCloseTop }) {
+  const handleOverlayClick = () => {
+    if (isTop) onCloseTop();
+  };
+
+  return (
+    <div
+      className={`modal-overlay ${isTop ? "modal-overlay--top" : ""}`}
+      style={{ zIndex }}
+      onClick={handleOverlayClick}
+      role="presentation"
+    >
+      <div
+        className="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={`modal-title-${modal.id}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <header className="modal__header">
+          <h3 id={`modal-title-${modal.id}`} className="modal__title">
+            {modal.content.title}
+          </h3>
+          <button
+            type="button"
+            className="modal__close"
+            aria-label="Close modal"
+            onClick={onClose}
+          >
+            ×
+          </button>
+        </header>
+
+        <div className="modal__body">{modal.content.body}</div>
+
+        {modal.content.footer && (
+          <footer className="modal__footer">{modal.content.footer}</footer>
+        )}
+      </div>
+    </div>
+  );
+}
 
 function ModalProvider({ children }) {
   const [modals, setModals] = useState([]);
@@ -23,46 +88,43 @@ function ModalProvider({ children }) {
     setModals((prev) => prev.slice(0, -1));
   }, []);
 
+  useEffect(() => {
+    if (modals.length === 0) return;
+
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        closeTopModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [modals.length, closeTopModal]);
+
   return (
     <ModalContext.Provider
       value={{ modals, openModal, closeModal, closeTopModal }}
     >
       {children}
-      {modals.map((modal, index) => (
-        <div
-          key={modal.id}
-          className="modal-overlay"
-          style={{ zIndex: 1000 + index }}
-          onClick={closeTopModal}
-          role="presentation"
-        >
-          <div
-            className="modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby={`modal-title-${modal.id}`}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <header className="modal__header">
-              <h3 id={`modal-title-${modal.id}`} className="modal__title">
-                {modal.content.title}
-              </h3>
-              <button
-                type="button"
-                className="modal__close"
-                aria-label="Close modal"
-                onClick={() => closeModal(modal.id)}
-              >
-                ×
-              </button>
-            </header>
-            <div className="modal__body">{modal.content.body}</div>
-            {modal.content.footer && (
-              <footer className="modal__footer">{modal.content.footer}</footer>
-            )}
-          </div>
-        </div>
-      ))}
+
+      <ModalPortal>
+        {modals.map((modal, index) => (
+          <ModalDialog
+            key={modal.id}
+            modal={modal}
+            isTop={index === modals.length - 1}
+            zIndex={1000 + index}
+            onClose={() => closeModal(modal.id)}
+            onCloseTop={closeTopModal}
+          />
+        ))}
+      </ModalPortal>
     </ModalContext.Provider>
   );
 }
@@ -83,8 +145,8 @@ function ModalDemo() {
       title: "Info Modal",
       body: (
         <p>
-          This modal is managed via Context API. You can stack multiple modals
-          on top of each other.
+          Rendered via <code>createPortal</code> into <code>document.body</code>.
+          Press ESC or click outside to close.
         </p>
       ),
       footer: (
@@ -119,14 +181,19 @@ function ModalDemo() {
   const openStacked = () => {
     openModal("stack-1", {
       title: "First Modal",
-      body: <p>Click below to open a second modal on top.</p>,
+      body: <p>Open a second modal — ESC and outside click close the top one.</p>,
       footer: (
         <button
           type="button"
           onClick={() =>
             openModal("stack-2", {
               title: "Second Modal",
-              body: <p>Stacked modal — click overlay or × to dismiss.</p>,
+              body: (
+                <p>
+                  Stacked on top of the first. Use ×, ESC, or click the overlay
+                  to dismiss this layer first.
+                </p>
+              ),
             })
           }
         >
@@ -141,7 +208,8 @@ function ModalDemo() {
       <header className="modal-manager__header">
         <h2 className="modal-manager__title">Modal Manager</h2>
         <p className="modal-manager__subtitle">
-          Open, stack, and close modals via a shared Context API.
+          Open/close modals via Context API — portal to body, click outside, and
+          ESC support.
         </p>
       </header>
 
@@ -157,9 +225,14 @@ function ModalDemo() {
         </button>
       </div>
 
-      <p className="modal-manager__meta">
-        Active modals: {modals.length}
-      </p>
+      <p className="modal-manager__meta">Active modals: {modals.length}</p>
+
+      <ul className="modal-manager__hints">
+        <li>× button — close that modal</li>
+        <li>Click overlay — closes top modal only</li>
+        <li>ESC — closes top modal</li>
+        <li>Portal — modals render outside the app tree</li>
+      </ul>
     </div>
   );
 }

@@ -70,6 +70,22 @@
   cursor: not-allowed;
 }
 
+.todo-list-search {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+  background: #fff;
+}
+
+.todo-list-search:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
 .todo-list-filters {
   display: flex;
   gap: 8px;
@@ -152,6 +168,25 @@
   background: #f9fafb;
 }
 
+.todo-list-item--dragging {
+  opacity: 0.55;
+  background: #eff6ff;
+}
+
+.todo-list-drag-handle {
+  flex-shrink: 0;
+  width: 20px;
+  color: #9ca3af;
+  font-size: 16px;
+  line-height: 1;
+  cursor: grab;
+  user-select: none;
+}
+
+.todo-list-item:active .todo-list-drag-handle {
+  cursor: grabbing;
+}
+
 .todo-list-item--completed .todo-list-text {
   color: #9ca3af;
   text-decoration: line-through;
@@ -213,7 +248,7 @@
   cursor: default;
 }
 
-.todo-list-item:not(.todo-list-item--completed) .todo-list-text {
+.todo-list-text {
   cursor: text;
 }
 
@@ -279,6 +314,13 @@
   border: 1px dashed #e5e7eb;
   border-radius: 12px;
   background: #fafafa;
+}
+
+.todo-list-hint {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: #9ca3af;
+  text-align: center;
 }
 
 .todo-list-footer {

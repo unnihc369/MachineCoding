@@ -22,6 +22,32 @@
   line-height: 1.5;
 }
 
+.tabs-demo__add-btn {
+  margin-bottom: 14px;
+  padding: 10px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.tabs-demo__add-btn:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.tabs-demo__hints {
+  margin: 16px 0 0;
+  padding-left: 18px;
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
 .tabs {
   border: 1px solid #e5e7eb;
   border-radius: 12px;
@@ -32,12 +58,14 @@
 
 .tabs__list {
   display: flex;
+  flex-wrap: wrap;
   border-bottom: 1px solid #e5e7eb;
   background: #f9fafb;
 }
 
 .tabs__tab {
-  flex: 1;
+  flex: 1 1 auto;
+  min-width: 80px;
   padding: 12px 16px;
   border: none;
   border-bottom: 2px solid transparent;
@@ -62,11 +90,23 @@
 
 .tabs__panel {
   padding: 20px 18px;
+  min-height: 88px;
 }
 
-.tabs__panel p {
+.tabs__content {
   margin: 0;
   font-size: 14px;
   line-height: 1.6;
   color: #374151;
+}
+
+.tabs__content strong {
+  color: #171717;
+}
+
+.tabs__loading {
+  padding: 12px 0;
+  font-size: 14px;
+  color: #6b7280;
+  font-style: italic;
 }

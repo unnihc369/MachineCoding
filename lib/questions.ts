@@ -23,8 +23,36 @@ import MemoryGame from "@/questions/memory-game/MemoryGame";
 import TrafficLight from "@/questions/traffic-light/TrafficLight";
 import StarRating from "@/questions/star-rating/StarRating";
 import Tabs from "@/questions/tabs/Tabs";
+import PasswordStrength from "@/questions/password-strength/PasswordStrength";
+import TreeView from "@/questions/tree-view/TreeView";
 
 const questionRegistry: Question[] = [
+  {
+    slug: "tree-view",
+    title: "Tree View",
+    description:
+      "Recursive tree with expand/collapse, node search with highlight, and auto-expand matching branches.",
+    topics: ["tree", "recursion", "search", "expand-collapse"],
+    difficulty: "medium",
+    sourceFiles: {
+      tsx: "questions/tree-view/TreeView.jsx",
+      css: "questions/tree-view/TreeView.css",
+    },
+    Component: TreeView,
+  },
+  {
+    slug: "password-strength",
+    title: "Password Strength Meter",
+    description:
+      "Generate passwords by length and character options — Weak/Medium/Strong rating with regex rule validation.",
+    topics: ["password", "regex", "forms", "generator", "validation"],
+    difficulty: "medium",
+    sourceFiles: {
+      tsx: "questions/password-strength/PasswordStrength.jsx",
+      css: "questions/password-strength/PasswordStrength.css",
+    },
+    Component: PasswordStrength,
+  },
   {
     slug: "kanban-board",
     title: "Kanban Board",
@@ -42,7 +70,7 @@ const questionRegistry: Question[] = [
     slug: "modal-manager",
     title: "Modal Manager",
     description:
-      "Context-driven modal system — open, stack, and close dialogs from anywhere.",
+      "Context-driven modals with portal rendering, open/close, click-outside, ESC key, and stacking.",
     topics: ["modal", "context-api", "portal", "ui"],
     difficulty: "medium",
     sourceFiles: {
@@ -120,7 +148,7 @@ const questionRegistry: Question[] = [
     slug: "star-rating",
     title: "Star Rating",
     description:
-      "Interactive 5-star rating with hover preview and read-only display mode.",
+      "Partial star rating (0.5 steps) with hover fill, keyboard arrows, text input, and read-only mode.",
     topics: ["rating", "hover", "controlled-component", "ui"],
     difficulty: "easy",
     sourceFiles: {
@@ -133,7 +161,7 @@ const questionRegistry: Question[] = [
     slug: "tabs",
     title: "Tabs",
     description:
-      "Tabbed interface — switch panels with accessible tab buttons and one active view.",
+      "Tabbed interface with static panels, lazy-loaded content via Suspense, and dynamic add-tab.",
     topics: ["tabs", "accessibility", "conditional-rendering"],
     difficulty: "easy",
     sourceFiles: {
@@ -159,7 +187,7 @@ const questionRegistry: Question[] = [
     slug: "bar-graph",
     title: "Bar Graph",
     description:
-      "CSS bar chart from an array of { id, value } objects, scaled to the max value.",
+      "Animated bar chart with hover tooltip (cursor % from bottom), asc/desc sorting, and max-value scaling.",
     topics: ["charts", "css", "data-visualization"],
     difficulty: "easy",
     sourceFiles: {
@@ -211,7 +239,7 @@ const questionRegistry: Question[] = [
     slug: "accordion",
     title: "Accordion",
     description:
-      "Single-expand accordion with title/content items, toggle collapse, and empty-state handling.",
+      "Accordion with single/multiple open modes, nested items, expand/collapse, and empty-state handling.",
     topics: ["accordion", "useState", "conditional-rendering", "ui"],
     difficulty: "easy",
     sourceFiles: {
@@ -237,7 +265,7 @@ const questionRegistry: Question[] = [
     slug: "otp-input",
     title: "OTP Input",
     description:
-      "Generic scalable OTP field — configurable digit count, numeric-only, auto-advance, backspace navigation, and first-box focus.",
+      "Controlled OTP field — auto-advance, backspace navigation, paste support, and configurable digit count.",
     topics: ["forms", "useRef", "useEffect", "keyboard", "generic-component"],
     difficulty: "medium",
     sourceFiles: {
@@ -302,7 +330,7 @@ const questionRegistry: Question[] = [
     slug: "todolist",
     title: "Todo List",
     description:
-      "Add, complete, edit, delete, and filter todos with active/completed views.",
+      "Full todo app — add, edit, delete, complete, search, filter (All/Pending/Completed), drag-and-drop reorder, and localStorage persistence.",
     topics: ["forms", "state", "lists", "filters"],
     difficulty: "easy",
     sourceFiles: {
