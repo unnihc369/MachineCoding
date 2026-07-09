@@ -281,7 +281,7 @@ body {
   display: grid;
   grid-template-columns: 65% 35%;
   flex: 1;
-  min-height: 0;
+  max-height: 550px;
   width: 100%;
   height: calc(100vh - 160px);
   border: 1px solid #e5e7eb;
